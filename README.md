@@ -19,7 +19,7 @@ git checkout original-reproduce
 
 ### Download Original Data
 
-The original data files necessary for this implementation are provided in this repository. Please refer to the rawdata/ directory (or specify the exact path) for access.
+The original data files necessary for this implementation are provided in this repository. Please refer to the `rawdata/` directory (or specify the exact path) for access.
 
 ## Running the Model
 
@@ -59,9 +59,9 @@ Command-Line Arguments:
 | `--batch`    | 256                              | Batch size.                    |
 | `--gpu`      | 1                                | CUDA device ID.                |
 | `--patience` | 100                              | Patience for early stopping.   |
-| `--suffix`   | `results_oneil_mgaedc100_folds`  | Model directory suffix.        |
-| `--hidden`   | `[2048, 4096, 8192]`             | Hidden layer sizes.            |
-| `--lr`       | `[1e-3, 1e-4, 1e-5]`             | Learning rate values.    
+| `--suffix`   | results_oneil_mgaedc100_folds  | Model directory suffix.        |
+| `--hidden`   | [2048, 4096, 8192]            | Hidden layer sizes.            |
+| `--lr`       | [1e-3, 1e-4, 1e-5]             | Learning rate values.    
 
 
 ## References
