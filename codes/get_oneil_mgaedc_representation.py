@@ -20,7 +20,7 @@ import tensorflow.compat.v1 as tf
 tf.compat.v1.disable_eager_execution()
 # Train on CPU (hide GPU) due to memory constraints
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"] = "3"
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 tf.compat.v1.disable_v2_behavior() 
 
 config = tf.compat.v1.ConfigProto()
