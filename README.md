@@ -1,71 +1,76 @@
-# MGAE-DC
-This is the implementation code of MGAE-DC, a deep learning framework for predicting the synergistic effects of drug combinations through multi-channel graph autoencoders.
+# MGAE-DC: Drug Synergy Prediction
+This branch reproduces the implementation of MGAE-DC, a deep learning framework for predicting drug combination synergistic effects using multi-channel graph autoencoders.
 
-![the schematic of MGAE-DC](fig1.png)
+## Dependencies and Installation
+### Conda Environment
+```
+conda create -n mgaedc python=3.8
+conda activate mgaedc
+conda install pandas=1.3.5 numpy=1.21.2 tensorflow-gpu=2.4.1
+conda install networkx scikit-learn matplotlib pytorch
+```
 
-## Requirements
-Python 3.8 or higher  
-pandas 1.3.5
-numpy 1.21.2
-tensorflow 2.4.1    
+### Clone Repository
+```
+git clone https://github.com/JDACS4C-IMPROVE/MGAE-DC.git
+cd MGAE-DC
+git checkout original-reproduce
+```
+
+### Download Original Data
+
+The original data files necessary for this implementation are provided in this repository. Please refer to the rawdata/ directory (or specify the exact path) for access.
+
+## Running the Model
+
+### Extracting Drug Embeddings with Multi-Channel Graph Autoencoders
+
+The following script extracts cell line-specific and common drug embeddings using multi-channel graph autoencoders from the embedding module.
+
+Usage:
+```
+python codes/get_oneil_mgaedc_representation.py -learning_rate 0.001 -epochs 10000 -embedding_dim 320 -dropout 0.2 -weight_decay 0 -val_test_size 0.1
+```  
+
+Command-Line Arguments:
+| Argument          | Default  | Description                                      |
+|------------------|---------|--------------------------------------------------|
+| `-learning_rate` | 0.001   | Initial learning rate.                           |
+| `-epochs`        | 10000   | Number of training epochs.                       |
+| `-embedding_dim` | 320     | Number of dimensions for the embedding.          |
+| `-dropout`       | 0.2     | Dropout rate (1 - keep probability).             |
+| `-weight_decay`  | 0       | Weight for L2 loss on the embedding matrix.      |
+| `-val_test_size` | 0.1     | Proportion of validation and test samples.       |
 
 
-## Datasets
-1. O'Neil dataset
-2. ALMANAC dataset
-3. CLOUD datset
-4. FORCINA datset
+### Predicting Synergistic Effects of Drug Combinations
 
+The following script is used to predict the synergistic effects of drug combinations in the predictor module.
 
-## Training
-###The embedding module
-python codes/get_oneil_mgaedc_representation.py -learning_rate 0.001 -epochs 10000 -embedding_dim 320 -drop_out 0.2 -weight_decay 0 -val_test_size 0.1  
-This script is used to extract the cell line-specific and common drug embeddings through multi-channel graph autoencoders in the embedding module. 
-
-
-|Argument|Default|Description|
-|---|---|----|
-| learning_rate|  0.001|  Initial learning rate. |
-| epochs|  10000|  The number of training epochs. |
-| embedding_dim|  320|  The number of dimension for drug embeddings. |
-| dropout|  0.2|  Dropout rate (1 - keep probability) |
-| weight_decay|  0|  Weight for L2 loss on embedding matrix. |
-| val_test_size|  0.1|  the rate of validation and test samples. |
-
-
-###The predictor module
+Usage:
+```
 python codes/get_oneil_mgaedc.py -learning_rate 0.01 -epochs 500 -batch 320 -drop_out 0.2 -hidden 8192 -patience 100 
-This script is used to predict the synergistic effects of drug combinations in the predictore module.
+```
+
+Command-Line Arguments:
+| Argument      | Default                          | Description                    |
+|--------------|----------------------------------|--------------------------------|
+| `--epoch`    | 1                                | Number of training epochs.     |
+| `--batch`    | 256                              | Batch size.                    |
+| `--gpu`      | 1                                | CUDA device ID.                |
+| `--patience` | 100                              | Patience for early stopping.   |
+| `--suffix`   | `results_oneil_mgaedc100_folds`  | Model directory suffix.        |
+| `--hidden`   | `[2048, 4096, 8192]`             | Hidden layer sizes.            |
+| `--lr`       | `[1e-3, 1e-4, 1e-5]`             | Learning rate values.    
 
 
-|Argument|Default|Description|
-|---|---|----|
-| learning_rate|  0.01|  Initial learning rate. |
-| epochs|  500|  The number of training epochs. |
-| batch|  256|  The nbatch size. |
-| hidden|  0.2|  Dropout rate (1 - keep probability) |
-| weight_decay|  1024|  (n, n/2, 1) The hidden size for NN. |
-| patience|  100|  the patience for early stop. |
+## References
 
+Original GitHub: https://github.com/yushenshashen/MGAE-DC
 
-###Predicting with pretrained model
+Original Paper: https://doi.org/10.1371/journal.pcbi.1010951
 
-
-The size of pretrained models are too large, so they are accessible with baidu netdisk [links](https://pan.baidu.com/s/1lKo-sYSD_q-DfXCKMzmKpg). 密码：bkri.
-
-
-## Reference
-Please cite our work if you find our code/paper is useful to your work.
-
+If you use this repository in your research or projects, please cite the original work:
 ```   
-@article{Zhang, 
-title={MGAE-DC: predicting the synergistic effects of drug combinations through multi-channel graph autoencoders}, 
-author={Peng Zhang, Shikui Tu}, 
-journal={}, 
-volume={}, 
-number={}, 
-year={2022}, 
-month={}, 
-pages={} 
-}
+Zhang P, Tu S (2023) MGAE-DC: Predicting the synergistic effects of drug combinations through multi-channel graph autoencoders. PLoS Comput Biol 19(3): e1010951. https://doi.org/10.1371/journal.pcbi.1010951
 ```
