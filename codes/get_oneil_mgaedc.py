@@ -34,7 +34,7 @@ if not os.path.exists(OUTPUT_DIR):
 # CELL_FEAT_FILE = os.path.join( 'rawdata/target_ge.npy')
 # CELL2ID_FILE = os.path.join('rawdata/cell2id.tsv')
 
-SYNERGY_FILE = 'rawdata/oneil_synergy_loewe_cutoff30.txt'
+SYNERGY_FILE = 'rawdata/oneil_loewe_cutoff30.txt'
 DRUG_FEAT_FILE = 'rawdata/oneil_drug_feat.npy'
 CELL_FEAT_FILE = 'rawdata/oneil_cell_feat.npy'
 
