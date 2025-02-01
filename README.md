@@ -7,7 +7,8 @@ This branch reproduces the implementation of MGAE-DC, a deep learning framework 
 conda create -n mgaedc python=3.8
 conda activate mgaedc
 conda install pandas=1.3.5 numpy=1.21.2 tensorflow-gpu=2.4.1
-conda install networkx scikit-learn matplotlib pytorch
+conda install networkx scikit-learn matplotlib
+conda install pytorch=1.7.1 -c pytorch
 ```
 
 ### Clone Repository
@@ -21,6 +22,20 @@ git checkout original-reproduce
 
 The original data files necessary for this implementation are provided in this repository. Please refer to the `rawdata/` directory (or specify the exact path) for access.
 
+## Infomax Fingerprint Generation
+
+This repository already includes precomputed Infomax fingerprints in the `rawdata/` directory,  
+so there is no need to regenerate them to run the current model.
+
+However, if you need to generate Infomax fingerprints for new drug data, we followed the methodology outlined in:  
+["Comparative analysis of molecular fingerprints in prediction of drug combination effects"](https://academic.oup.com/bib/article/22/6/bbab291/6353238#325226313).  
+
+The provided implementation for generating new Infomax fingerprints is available in this notebook:  
+[Infomax Fingerprint Generation](https://github.com/NetPharMedGroup/publication_fingerprint/blob/main/_5_make_infomax_fps.ipynb).  
+
+Ensure that any newly generated fingerprints follow the same format as those in `rawdata/` before using them in the model.
+
+
 ## Running the Model
 
 ### Extracting Drug Embeddings with Multi-Channel Graph Autoencoders
@@ -29,7 +44,7 @@ The following script extracts cell line-specific and common drug embeddings usin
 
 **Usage**:
 ```
-python codes/get_oneil_mgaedc_representation.py -learning_rate 0.001 -epochs 10000 -embedding_dim 320 -dropout 0.2 -weight_decay 0 -val_test_size 0.1
+python codes/get_oneil_mgaedc_representation.py
 ```  
 
 **Command-Line Arguments**:
@@ -57,7 +72,7 @@ The following script is used to predict the synergistic effects of drug combinat
 
 **Usage**:
 ```
-python codes/get_oneil_mgaedc.py --epoch 500
+python codes/get_oneil_mgaedc.py --epoch 500 --gpu 0
 ```
 
 **Command-Line Arguments**:
