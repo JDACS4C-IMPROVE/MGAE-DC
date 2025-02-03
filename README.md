@@ -72,7 +72,7 @@ The following script is used to predict the synergistic effects of drug combinat
 
 **Usage**:
 ```
-python codes/get_oneil_mgaedc.py --epoch 500 --gpu 0
+python codes/get_oneil_mgaedc.py --epoch 500 --gpu 0 --batch 320
 ```
 
 **Command-Line Arguments**:
@@ -85,6 +85,18 @@ python codes/get_oneil_mgaedc.py --epoch 500 --gpu 0
 | `--suffix`   | results_oneil_mgaedc100_folds  | Model directory suffix.        |
 | `--hidden`   | [2048, 4096, 8192]            | Hidden layer sizes.            |
 | `--lr`       | [1e-3, 1e-4, 1e-5]             | Learning rate values.    
+
+## Results
+
+The results can be found at:
+```  
+results/results_loewe/results_oneil_mgaedc100_folds
+```
+
+For evaluation, the **`cv.log`** file can be compared to **Table 1** in  
+[*MGAE-DC: Predicting the synergistic effects of drug combinations through multi-channel graph autoencoders*](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010951).
+
+*The current implementation does not perform cross-fold validation. Instead, it runs only for a single fold (test_fold = 0).*
 
 
 ## References
