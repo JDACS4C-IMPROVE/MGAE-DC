@@ -3,9 +3,7 @@ channels:
   - pytorch
   - conda-forge
   - nvidia
-  - bioconda
   - defaults
-  - r
 dependencies:
   - _libgcc_mutex=0.1
   - _openmp_mutex=4.5
