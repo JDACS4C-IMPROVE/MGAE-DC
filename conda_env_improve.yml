@@ -1,4 +1,4 @@
-name: mgaedc
+name: mgaedc_improve
 channels:
   - pytorch
   - conda-forge
@@ -179,6 +179,7 @@ dependencies:
   - python_abi=3.8
   - pytorch=1.7.1=py3.8_cuda10.1.243_cudnn7.6.3_0
   - pytz=2024.2
+  - pyyaml=6.0.2
   - qt-main=5.15.8
   - re2=2023.09.01
   - readline=8.2
