@@ -32,26 +32,25 @@ The original data files necessary for this implementation are provided in this r
 
 ## Running the Model
 
-1. Activate the conda environment:
+### 1. Activate the conda environment
 ```
 conda activate mgaedc_improve
 ```
 
-2. Set environment variables:
+### 2. Set environment variables
 ```
 export PYTHONPATH=$PYTHONPATH:/your/path/to/IMPROVE
 ```
 
-3. Prepare dataset in IMPROVE format
-
-This script processes the O'Neil datasets and reformats them to match the IMPROVE framework. The processed data is saved in the `improve_oneil` folder, following the required structure with `y_data`, `x_data`, and `splits` folders.
+### 3. Prepare dataset in IMPROVE format
 ```
 python prepare_oneil_data.py
 ```
+This script processes the O'Neil datasets and reformats them to match the IMPROVE framework. The processed data is saved in the `improve_oneil` folder, following the required structure with `y_data`, `x_data`, and `splits` folders.
 
-**Note: The cell features data originally comes from PRODeepSyn.**
+*Note: The cell features data originally comes from PRODeepSyn.*
 
-4. Preprocess raw data to construct model input data (ML data)
+### 4. Preprocess raw data to construct model input data (ML data)
 ```
 python mgaedc_preprocess_improve.py --input_dir improve_oneil --output_dir original/ml_data
 ```
@@ -64,7 +63,7 @@ Generates:
 
 This script includes the training of the cell line-specific and common drug embeddings. 
 
-5. Train model
+### 5. Train model
 ```
 python mgaedc_train_improve.py --input_dir original/ml_data --output_dir original/out_models
 ```
@@ -76,7 +75,7 @@ Generates:
  * predictions on val data (tabular data): `val_y_data_predicted.csv`
  * prediction performance scores on val data: `val_scores.json`
 
-6. Run inference on test data with the trained model
+### 6. Run inference on test data with the trained model
 ```
 python mgaedc_infer_improve.py --input_data_dir original/ml_data --input_model_dir original/out_models --output_dir original/out_infer --calc_infer_score true
 ```
