@@ -1,0 +1,36 @@
+[DEFAULT]
+
+[Preprocess]
+train_split_file = ONEIL_split_0_train.txt
+val_split_file = ONEIL_split_0_val.txt
+test_split_file = ONEIL_split_0_test.txt
+data_format = .npy
+y_data_files = [["response.tsv"]]
+x_data_canc_files = [["cancer_gene_expression.tsv", ["Ensembl"]]]
+x_data_drug_files = [["drug_infomax.tsv"]]
+output_dir = ./ml_data
+embeddings_dir = results_mgaedc_representation
+y_col_name = loewe
+drug_col_name = improve_chem_id
+drug_col_name_1 = improve_chem_id_1
+drug_col_name_2 = improve_chem_id_2
+
+[Train]
+data_format = .npy
+model_file_name = model
+model_file_format = .pkl
+epochs = 500
+batch_size = 256
+learning_rate = 0.0001
+patience = 100
+drug_col_name_1 = improve_chem_id_1
+drug_col_name_2 = improve_chem_id_2
+y_col_name = loewe
+
+[Infer]
+data_format = .npy
+model_file_name = model
+model_file_format = .pkl
+drug_col_name_1 = improve_chem_id_1
+drug_col_name_2 = improve_chem_id_2
+y_col_name = loewe
