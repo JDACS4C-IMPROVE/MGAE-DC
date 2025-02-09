@@ -96,8 +96,7 @@ results/results_loewe/results_oneil_mgaedc100_folds
 For evaluation, the **`cv.log`** file can be compared to **Table 1** in  
 [*MGAE-DC: Predicting the synergistic effects of drug combinations through multi-channel graph autoencoders*](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010951).
 
-*The current implementation does not perform cross-fold validation. Instead, it runs only for a single fold (test_fold = 0).*
-
+*The current implementation does not perform cross-fold validation. Instead, it runs only for a predefined single fold (test_fold = 0).*
 
 ## References
 
