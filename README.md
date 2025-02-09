@@ -28,7 +28,7 @@ cd ..
 
 ### Download Original Data
 
-The original data files necessary for this implementation are provided in this repository. Please refer to the `rawdata/` directory (or specify the exact path) for access.
+The original data files necessary for this implementation are provided in this repository. Please refer to the `rawdata/` directory to access the original data files.
 
 ## Running the Model
 
