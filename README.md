@@ -27,7 +27,7 @@ The original data files necessary for this implementation are provided in this r
 This repository already includes precomputed Infomax fingerprints in the `rawdata/` directory,  
 so there is no need to regenerate them to run the current model.
 
-However, if you need to generate Infomax fingerprints for new drug data, we followed the methodology outlined in:  
+However, if you need to generate Infomax fingerprints for new drug data, follow the methodology outlined in:  
 ["Comparative analysis of molecular fingerprints in prediction of drug combination effects"](https://academic.oup.com/bib/article/22/6/bbab291/6353238#325226313).  
 
 The provided implementation for generating new Infomax fingerprints is available in this notebook:  
