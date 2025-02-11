@@ -61,7 +61,7 @@ Generates:
  * three model input data files: `train_data.npy`, `val_data.npy`, `test_data.npy`
  * three tabular data files, each containing the drug response values (i.e. Loewe) and corresponding metadata: `train_y_data.csv`, `val_y_data.csv`, `test_y_data.csv`
 
-This script includes the training of the cell line-specific and common drug embeddings. 
+This script trains both the cell line-specific and common drug embeddings using the train dataset, following the approach in the original code. 
 
 ### 5. Train model
 ```
