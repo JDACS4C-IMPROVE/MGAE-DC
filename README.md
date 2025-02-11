@@ -80,7 +80,7 @@ Generates:
 python mgaedc_infer_improve.py --input_data_dir original/ml_data --input_model_dir original/out_models --output_dir original/out_infer --calc_infer_score true
 ```
 
-Evaluates the performance on a test dataset, `train_data.npy`, with the trained model.
+Evaluates the performance on a test dataset, `test_data.npy`, with the trained model.
 
 Generates:
 
