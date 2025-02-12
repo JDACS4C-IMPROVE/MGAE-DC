@@ -88,16 +88,21 @@ def run(params: Dict):
     cellslist = sorted(set(response_all[params['canc_col_name']]))
     cellscount = len(cellslist)
     print(f"Total unique drugs: {drugscount}, Total unique cell lines: {cellscount}")
-    
+
+    # Convert to sparse matrix
     drug_feat = sp.csr_matrix( drug_feat_raw )
+    # Create sparse matrix to tuple
     drug_feat = sparse_to_tuple(drug_feat.tocoo())
+    # Get number of drug features
     num_drug_feat = drug_feat[2][1]
+    # Get number of nonzero elements
     num_drug_nonzeros = drug_feat[1].shape[0]
     
-    # convert to numpy array
+    # Convert to numpy array
     drug_feat_array = drug_feat_raw.values
     cell_feat_array = cell_feat.iloc[:, 1:].values
-    
+
+    # Get drug indices
     indexs_all = []
     for idx1 in range(drugscount):
         for idx2 in range(drugscount):
@@ -160,7 +165,7 @@ def run(params: Dict):
     # --------------------------------------------------------------------      
     embeddings_common, embeddings_specific = sess.run( [model.embeddings_common, model.embeddings_specific], feed_dict=feed_dict)
     
-    # save embeddings specific
+    # Save embeddings specific
     d_topology_specifics = {}
     for cellidx in range(cellscount):
         cellname = cellslist[cellidx]
@@ -173,7 +178,7 @@ def run(params: Dict):
         file_path = os.path.join(resultspath, f"results_embeddings_specific_{cellidx}.txt")
         embeddings.to_csv(file_path, sep="\t",header=None, index=True)
     
-    # save embeddings common
+    # Save embeddings common
     embeddings_common = pd.DataFrame(embeddings_common)
     embeddings_common.index = drugslist
     embeddings_common.to_csv(os.path.join(resultspath, "results_embeddings_common.txt"), sep="\t",header=None, index=True)
