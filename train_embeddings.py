@@ -69,7 +69,7 @@ def construct_synergy_networks(data, cellslist, drugslist, indexs_all, params):
     
     for cellidx, cellname in enumerate(cellslist):
         print(f'Constructing networks for {cellname}')
-        each_data = data[data[params['canc_col_name']] == cellname]
+        each_data = data[data[params['cell_column_name']] == cellname]
 
         # Initialize adjacency matrices
         net_adj_train = {1: np.zeros((drugscount, drugscount)),
@@ -81,9 +81,9 @@ def construct_synergy_networks(data, cellslist, drugslist, indexs_all, params):
 
         for each in each_data.values:
             drug1, drug2, cell, synergy = each[
-            [data.columns.get_loc(params["drug_col_name_1"]),
-             data.columns.get_loc(params["drug_col_name_2"]),
-             data.columns.get_loc(params["canc_col_name"]),
+            [data.columns.get_loc(params["drug_1_column_name"]),
+             data.columns.get_loc(params["drug_2_column_name"]),
+             data.columns.get_loc(params["cell_column_name"]),
              data.columns.get_loc(params["y_col_name"])]
             ]
             drugidx1, drugidx2 = drugslist.index(drug1), drugslist.index(drug2)

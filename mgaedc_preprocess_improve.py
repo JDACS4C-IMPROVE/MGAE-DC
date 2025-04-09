@@ -75,9 +75,9 @@ def run(params: Dict):
                                     split_file=params["test_split_file"],
                                     verbose=False).dfs["response.tsv"]
     '''
-    response_train = syn.get_response_data(split_file=params["train_split_file"], benchmark_dir=params['input_dir'])
-    response_val = syn.get_response_data(split_file=params["val_split_file"], benchmark_dir=params['input_dir'])
-    response_test = syn.get_response_data(split_file=params["test_split_file"], benchmark_dir=params['input_dir'])
+    response_train = syn.get_response_data(split_file=params['train_split_file'], benchmark_dir=params['input_dir'])
+    response_val = syn.get_response_data(split_file=params['val_split_file'], benchmark_dir=params['input_dir'])
+    response_test = syn.get_response_data(split_file=params['test_split_file'], benchmark_dir=params['input_dir'])
     # --------------------------------------------------------------------
     # [Req] Load X data (feature representations)
     # --------------------------------------------------------------------
