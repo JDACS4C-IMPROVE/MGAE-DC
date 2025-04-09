@@ -88,24 +88,44 @@ def run(params: Dict):
     drug_feat_raw = syn.get_drug_infomax(file = params['drug_infomax_file'], 
                      benchmark_dir = params['input_dir'], 
                      drug_column_name = params['drug_column_name'])
-    cell_feat = cell_feat.reset_index()
-    drug_feat_raw = drug_feat_raw.reset_index()
+
     #drug_feat_raw = drugs_obj.dfs['drug_infomax.tsv']
     #cell_feat = omics_obj.dfs['cancer_gene_expression.tsv']
     
     # TODO Add check for IDs between response dataframe and features dataframes
+
+
+
     
+
     # --------------------------------------------------------------------
     # [MODEL] Preprocess X data
     # --------------------------------------------------------------------
+
+    ##
     # Merge all response data
     response_all = pd.concat([response_train, response_val, response_test], ignore_index=True)
+    print("Total response values:", len(response_all))
+    # drop from response if no feature available
+    response_all = response_all[response_all[params['cell_column_name']].isin(cell_feat.index.to_list())]
+    response_all = response_all[response_all[params['drug_1_column_name']].isin(drug_feat_raw.index.to_list())]
+    response_all = response_all[response_all[params['drug_2_column_name']].isin(drug_feat_raw.index.to_list())]
+    print("Response values with features:", len(response_all))
+
     # Extract unique drug and cell names
     drugslist = sorted(set(response_all[params['drug_1_column_name']]).union(set(response_all[params['drug_2_column_name']])))
     drugscount = len(drugslist)
     cellslist = sorted(set(response_all[params['cell_column_name']]))
     cellscount = len(cellslist)
     print(f"Total unique drugs: {drugscount}, Total unique cell lines: {cellscount}")
+
+    ##
+    # drop from features if no response value
+    cell_feat = cell_feat.reset_index()
+    cell_feat = cell_feat[cell_feat[params['cell_column_name'].isin(response_all[params['cell_column_name']].to_list())]]
+    drug_feat_raw = drug_feat_raw.reset_index()
+    drug_feat_raw = drug_feat_raw[drug_feat_raw[params['drug_column_name']].isin(drugslist)]
+
 
     # Convert to sparse matrix
     drug_feat = sp.csr_matrix( drug_feat_raw )
