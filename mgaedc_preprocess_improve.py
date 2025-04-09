@@ -7,11 +7,15 @@ from improvelib.utils import str2bool
 import improvelib.utils as frm
 
 # [Req] Application-specific imports
-from improvelib.applications.drug_response_prediction.config import DRPPreprocessConfig
+#from improvelib.applications.drug_response_prediction.config import DRPPreprocessConfig
 from model_params_def import preprocess_params
-import improvelib.applications.drug_response_prediction.drug_utils as drugs_utils
-import improvelib.applications.drug_response_prediction.omics_utils as omics_utils
-import improvelib.applications.drug_response_prediction.drp_utils as drp
+#import improvelib.applications.drug_response_prediction.drug_utils as drugs_utils
+#import improvelib.applications.drug_response_prediction.omics_utils as omics_utils
+#import improvelib.applications.drug_response_prediction.drp_utils as drp
+
+from improvelib.applications.synergy.config import SynergyPreprocessConfig
+import improvelib.applications.synergy.synergy_utils as syn
+
 
 # [MODEL] Model-specific imports, as needed
 import os
@@ -58,6 +62,7 @@ def run(params: Dict):
     # --------------------------------------------------------------------
     # [Req] Create dataloaders and get response data - DRP specific
     # --------------------------------------------------------------------
+    '''
     omics_obj = omics_utils.OmicsLoader(params)
     drugs_obj = drugs_utils.DrugsLoader(params)
     response_train = drp.DrugResponseLoader(params,
@@ -69,11 +74,22 @@ def run(params: Dict):
     response_test = drp.DrugResponseLoader(params,
                                     split_file=params["test_split_file"],
                                     verbose=False).dfs["response.tsv"]
+    '''
+    response_train = syn.get_response_data(split_file=params["train_split_file"], benchmark_dir=params['input_dir'])
+    response_val = syn.get_response_data(split_file=params["val_split_file"], benchmark_dir=params['input_dir'])
+    response_test = syn.get_response_data(split_file=params["test_split_file"], benchmark_dir=params['input_dir'])
     # --------------------------------------------------------------------
     # [Req] Load X data (feature representations)
     # --------------------------------------------------------------------
-    drug_feat_raw = drugs_obj.dfs['drug_infomax.tsv']
-    cell_feat = omics_obj.dfs['cancer_gene_expression.tsv']
+    cell_feat = syn.get_cell_transcriptomics(file = params['cell_transcriptomic_file'], 
+                                                  benchmark_dir = params['input_dir'], 
+                                                  cell_column_name = params['cell_column_name'], 
+                                                  norm = params['cell_transcriptomic_transform'])
+    drug_feat_raw = syn.get_drug_infomax(file = params['drug_infomax_file'], 
+                     benchmark_dir = params['input_dir'], 
+                     drug_column_name = params['drug_column_name'])
+    #drug_feat_raw = drugs_obj.dfs['drug_infomax.tsv']
+    #cell_feat = omics_obj.dfs['cancer_gene_expression.tsv']
     
     # TODO Add check for IDs between response dataframe and features dataframes
     
@@ -83,9 +99,9 @@ def run(params: Dict):
     # Merge all response data
     response_all = pd.concat([response_train, response_val, response_test], ignore_index=True)
     # Extract unique drug and cell names
-    drugslist = sorted(set(response_all[params['drug_col_name_1']]).union(set(response_all[params['drug_col_name_2']])))
+    drugslist = sorted(set(response_all[params['drug_1_column_name']]).union(set(response_all[params['drug_2_column_name']])))
     drugscount = len(drugslist)
-    cellslist = sorted(set(response_all[params['canc_col_name']]))
+    cellslist = sorted(set(response_all[params['cell_column_name']]))
     cellscount = len(cellslist)
     print(f"Total unique drugs: {drugscount}, Total unique cell lines: {cellscount}")
 
@@ -238,10 +254,10 @@ def run(params: Dict):
 
 # [Req]
 def main(args):
-    cfg = DRPPreprocessConfig()
+    cfg = SynergyPreprocessConfig()
     params = cfg.initialize_parameters(
         pathToModelDir=filepath,
-        default_config="mgaedc_original_params.txt",
+        default_config="mgaedc_params.ini",
         additional_definitions=preprocess_params)
     ml_data_outdir = run(params)
     print("\nFinished data preprocessing.")

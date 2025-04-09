@@ -31,18 +31,6 @@ preprocess_params = [
         "default": "embeddings/",
         "help": "Directory to save the trained embeddings."
     },
-    {
-        "name": "drug_col_name_1",
-        "type": str,
-        "default": "improve_chem_id_1",
-        "help": "Column name for the first drug identifier in the dataset."
-    },
-    {
-        "name": "drug_col_name_2",
-        "type": str,
-        "default": "improve_chem_id_2",
-        "help": "Column name for the second drug identifier in the dataset."
-    }
 ]
 
 
