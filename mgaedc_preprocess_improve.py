@@ -121,10 +121,12 @@ def run(params: Dict):
 
     ##
     # drop from features if no response value
-    cell_feat = cell_feat.reset_index()
-    cell_feat = cell_feat[cell_feat[params['cell_column_name']].isin(response_all[params['cell_column_name']].to_list())]
-    drug_feat_raw = drug_feat_raw.reset_index()
-    drug_feat_raw = drug_feat_raw[drug_feat_raw[params['drug_column_name']].isin(drugslist)]
+    #cell_feat = cell_feat.reset_index()
+    cell_feat = cell_feat.loc[cellslist]
+    #cell_feat = cell_feat[cell_feat[params['cell_column_name']].isin(response_all[params['cell_column_name']].to_list())]
+    #drug_feat_raw = drug_feat_raw.reset_index()
+    drug_feat_raw = drug_feat_raw.loc[drugslist]
+    #[drug_feat_raw[params['drug_column_name']].isin(drugslist)]
 
 
     # Convert to sparse matrix
