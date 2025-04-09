@@ -88,6 +88,8 @@ def run(params: Dict):
     drug_feat_raw = syn.get_drug_infomax(file = params['drug_infomax_file'], 
                      benchmark_dir = params['input_dir'], 
                      drug_column_name = params['drug_column_name'])
+    cell_feat = cell_feat.reset_index()
+    drug_feat_raw = drug_feat_raw.reset_index()
     #drug_feat_raw = drugs_obj.dfs['drug_infomax.tsv']
     #cell_feat = omics_obj.dfs['cancer_gene_expression.tsv']
     
