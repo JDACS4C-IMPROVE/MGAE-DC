@@ -27,7 +27,9 @@ class optimizer():
             # cellidx = 0
             #net1
             net1_indexs_pos = d_net1_indexs[cellidx][0]
+            print("net1_indexs_pos", net1_indexs_pos)
             net1_indexs_neg = d_net1_indexs[cellidx][1]
+            #error here
             net1_preds_pos = tf.gather(tf.reshape(preds_specific[cellidx][0],[-1,1]), net1_indexs_pos)
             net1_preds_neg = tf.gather(tf.reshape(preds_specific[cellidx][0],[-1,1]), net1_indexs_neg)
             net1_labels_pos = np.ones(( len(net1_indexs_pos), 1), dtype=np.float32)
