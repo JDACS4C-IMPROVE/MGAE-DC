@@ -170,6 +170,9 @@ def run(params: Dict):
     # Create model
     model = mgdc(placeholders, num_drug_feat, num_drug_nonzeros, params["embedding_dim"], fncellscount=cellscount , name='mgdc')
     
+    #test
+    net1_indexs_pos = train_networks["d_net1_index"][0][0]
+    print("net1_indexs_pos", net1_indexs_pos)
     # Create optimizer
     with tf.name_scope('optimizer'):
         opt = optimizer(model=model, 
