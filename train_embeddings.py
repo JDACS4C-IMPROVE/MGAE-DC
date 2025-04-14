@@ -91,7 +91,7 @@ def construct_synergy_networks(data, cellslist, drugslist, indexs_all, params):
                 drugidx1, drugidx2 = drugidx2, drugidx1
             
             # Determine network type based on synergy
-            net_type = 1 if float(synergy) >= 30 else 2 if float(synergy) > 0 else 3
+            net_type = 1 if float(synergy) >= params['additive_max'] else 2 if float(synergy) > params['additive_min'] else 3
 
             net_adj_train[net_type][drugidx1, drugidx2] = 1
             net_train_pos[net_type].extend([[drugidx1, drugidx2], [drugidx2, drugidx1]])

@@ -42,6 +42,18 @@ preprocess_params = [
         "type": str,
         "default": "improve_chem_id_2",
         "help": "Column name for the second drug identifier in the dataset."
+    },
+    {
+        "name": "additive_min",
+        "type": float,
+        "default": 6.7,
+        "help": "Cutoff between antagonistic and additive."
+    },
+    {
+        "name": "additive_max",
+        "type": float,
+        "default": 16,
+        "help": "Cutoff between additive and synergistic."
     }
 ]
 
