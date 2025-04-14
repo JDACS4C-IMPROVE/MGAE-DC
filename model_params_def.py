@@ -31,6 +31,18 @@ preprocess_params = [
         "default": "embeddings/",
         "help": "Directory to save the trained embeddings."
     },
+    {
+        "name": "additive_min",
+        "type": float,
+        "default": 6.7,
+        "help": "Cutoff between antagonistic and additive."
+    },
+    {
+        "name": "additive_max",
+        "type": float,
+        "default": 16,
+        "help": "Cutoff between additive and synergistic."
+    }
 ]
 
 
@@ -64,18 +76,6 @@ train_params = [
         "type": str,
         "default": "improve_sample_id",
         "help": "Column name for the cell line/sample identifier in the dataset."
-    },
-    {
-        "name": "additive_min",
-        "type": float,
-        "default": 6.7,
-        "help": "Cutoff between antagonistic and additive."
-    },
-    {
-        "name": "additive_max",
-        "type": float,
-        "default": 16,
-        "help": "Cutoff between additive and synergistic."
     }
 ]
 
