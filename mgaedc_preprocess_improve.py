@@ -105,6 +105,7 @@ def run(params: Dict):
     ##
     # Merge all response data
     response_all = pd.concat([response_train, response_val, response_test], ignore_index=True)
+    response_all = response_all.dropna(subset=[params['y_col_name']])
     print("Total response values:", len(response_all))
     # drop from response if no feature available
     response_all = response_all[response_all[params['cell_column_name']].isin(cell_feat.index.to_list())]
