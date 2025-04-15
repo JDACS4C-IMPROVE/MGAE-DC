@@ -93,7 +93,20 @@ def run(params: Dict):
     #cell_feat = omics_obj.dfs['cancer_gene_expression.tsv']
     
     # TODO Add check for IDs between response dataframe and features dataframes
-    
+
+    response_train = response_train.dropna(subset=[params['y_col_name']])
+    response_train = response_train[response_train[params['cell_column_name']].isin(cell_feat.index.to_list())]
+    response_train = response_train[response_train[params['drug_1_column_name']].isin(drug_feat_raw.index.to_list())]
+    response_train = response_train[response_train[params['drug_2_column_name']].isin(drug_feat_raw.index.to_list())]
+    response_val = response_val.dropna(subset=[params['y_col_name']])
+    response_val = response_val[response_val[params['cell_column_name']].isin(cell_feat.index.to_list())]
+    response_val = response_val[response_val[params['drug_1_column_name']].isin(drug_feat_raw.index.to_list())]
+    response_val = response_val[response_val[params['drug_2_column_name']].isin(drug_feat_raw.index.to_list())]
+    response_test = response_test.dropna(subset=[params['y_col_name']])
+    response_test = response_test[response_test[params['cell_column_name']].isin(cell_feat.index.to_list())]
+    response_test = response_test[response_test[params['drug_1_column_name']].isin(drug_feat_raw.index.to_list())]
+    response_test = response_test[response_test[params['drug_2_column_name']].isin(drug_feat_raw.index.to_list())]
+
     cells_to_remove = []
     unique_cells = response_train[params['cell_column_name']].unique()
     for cell in unique_cells:
@@ -131,16 +144,10 @@ def run(params: Dict):
     ##
     # Merge all response data
     response_all = pd.concat([response_train, response_val, response_test], ignore_index=True)
-    response_all = response_all.dropna(subset=[params['y_col_name']])
     print("Total response values:", len(response_all))
-    # drop from response if no feature available
-    response_all = response_all[response_all[params['cell_column_name']].isin(cell_feat.index.to_list())]
-    response_all = response_all[response_all[params['drug_1_column_name']].isin(drug_feat_raw.index.to_list())]
-    response_all = response_all[response_all[params['drug_2_column_name']].isin(drug_feat_raw.index.to_list())]
-    print("Response values with features:", len(response_all))
-    testdf = response_all[response_all[params['cell_column_name']] == "ACH-000322"]
-    testdf = testdf[testdf[params['y_col_name']] > 16]
-    print("ACH-000322", testdf)
+    #testdf = response_all[response_all[params['cell_column_name']] == "ACH-000322"]
+    #testdf = testdf[testdf[params['y_col_name']] > 16]
+    #print("ACH-000322", testdf)
     # Extract unique drug and cell names
     drugslist = sorted(set(response_all[params['drug_1_column_name']]).union(set(response_all[params['drug_2_column_name']])))
     drugscount = len(drugslist)
