@@ -143,7 +143,7 @@ def run(params: Dict):
 
    # Initialize session
     sess = tf.Session()
-        # Train the model
+    # Train the model
     loss_history, min_loss, feed_dict = train_model(
                                             sess=sess,
                                             model=model,
