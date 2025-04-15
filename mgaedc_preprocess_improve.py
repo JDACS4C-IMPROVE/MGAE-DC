@@ -101,6 +101,8 @@ def run(params: Dict):
         antag = df[df[params['y_col_name']] < params['additive_min']]
         addit = df[(df[params['y_col_name']] > params['additive_min']) & (df[params['y_col_name']] < params['additive_max'])]
         syner = df[df[params['y_col_name']] > params['additive_max']]
+        print("Cell:", cell)
+        print(len(antag), len(addit), len(syner))
         if (len(antag) == 0) or (len(addit) == 0) or (len(syner) == 0):
             cells_to_remove = cells_to_remove + [cell]
     
