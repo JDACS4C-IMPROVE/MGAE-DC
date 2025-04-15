@@ -106,8 +106,23 @@ def run(params: Dict):
         if (len(antag) == 0) or (len(addit) == 0) or (len(syner) == 0):
             cells_to_remove = cells_to_remove + [cell]
     
-    print("Cells to remove:", cells_to_remove)
+    print("Train cells to remove:", cells_to_remove)
     response_train = response_train[~response_train[params['cell_column_name']].isin(cells_to_remove)]
+
+    cells_to_remove = []
+    unique_cells = response_val[params['cell_column_name']].unique()
+    for cell in unique_cells:
+        df = response_val[response_val[params['cell_column_name']] == cell]
+        antag = df[df[params['y_col_name']] < params['additive_min']]
+        addit = df[(df[params['y_col_name']] > params['additive_min']) & (df[params['y_col_name']] < params['additive_max'])]
+        syner = df[df[params['y_col_name']] > params['additive_max']]
+        print("Cell:", cell)
+        print(len(antag), len(addit), len(syner))
+        if (len(antag) == 0) or (len(addit) == 0) or (len(syner) == 0):
+            cells_to_remove = cells_to_remove + [cell]
+    
+    print("Val cells to remove:", cells_to_remove)
+    response_val = response_val[~response_val[params['cell_column_name']].isin(cells_to_remove)]
 
 
     
