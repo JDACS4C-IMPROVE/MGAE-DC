@@ -104,6 +104,7 @@ def run(params: Dict):
         if (len(antag) == 0) or (len(addit) == 0) or (len(syner) == 0):
             cells_to_remove = cells_to_remove + [cell]
     
+    print("Cells to remove:", cells_to_remove)
     response_train = response_train[~response_train[params['cell_column_name']].isin(cells_to_remove)]
 
 
