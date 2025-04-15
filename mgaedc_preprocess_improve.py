@@ -126,7 +126,9 @@ def run(params: Dict):
     response_all = response_all[response_all[params['drug_1_column_name']].isin(drug_feat_raw.index.to_list())]
     response_all = response_all[response_all[params['drug_2_column_name']].isin(drug_feat_raw.index.to_list())]
     print("Response values with features:", len(response_all))
-    print("ACH-000322", response_all[response_all[params['cell_column_name']] == "ACH-000322"])
+    testdf = response_all[response_all[params['cell_column_name']] == "ACH-000322"]
+    testdf = testdf[testdf[params['y_col_name']] > 16]
+    print("ACH-000322", testdf)
     # Extract unique drug and cell names
     drugslist = sorted(set(response_all[params['drug_1_column_name']]).union(set(response_all[params['drug_2_column_name']])))
     drugscount = len(drugslist)
