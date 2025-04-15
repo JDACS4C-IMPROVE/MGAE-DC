@@ -93,7 +93,18 @@ def run(params: Dict):
     #cell_feat = omics_obj.dfs['cancer_gene_expression.tsv']
     
     # TODO Add check for IDs between response dataframe and features dataframes
-
+    
+    cells_to_remove = []
+    unique_cells = response_train[response_train[params['cell_column_name']]].unique()
+    for cell in unique_cells:
+        df = response_train[response_train[params['cell_column_name']] == cell]
+        antag = df[df['y_col_name'] < params['additive_min']]
+        addit = df[(df['col1'] > params['additive_min']) & (df['col1'] < params['additive_max'])]
+        syner = df[df['y_col_name'] > params['additive_max']]
+        if (len(antag) == 0) or (len(addit) == 0) or (len(syner) == 0):
+            cells_to_remove = cells_to_remove + [cell]
+    
+    response_train = response_train[~response_train[params['cell_column_name']].isin(cells_to_remove)]
 
 
     
