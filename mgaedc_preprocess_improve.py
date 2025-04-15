@@ -98,9 +98,9 @@ def run(params: Dict):
     unique_cells = response_train[params['cell_column_name']].unique()
     for cell in unique_cells:
         df = response_train[response_train[params['cell_column_name']] == cell]
-        antag = df[df['y_col_name'] < params['additive_min']]
-        addit = df[(df['col1'] > params['additive_min']) & (df['col1'] < params['additive_max'])]
-        syner = df[df['y_col_name'] > params['additive_max']]
+        antag = df[df[params['y_col_name']] < params['additive_min']]
+        addit = df[(df[params['y_col_name']] > params['additive_min']) & (df[params['y_col_name']] < params['additive_max'])]
+        syner = df[df[params['y_col_name']] > params['additive_max']]
         if (len(antag) == 0) or (len(addit) == 0) or (len(syner) == 0):
             cells_to_remove = cells_to_remove + [cell]
     
