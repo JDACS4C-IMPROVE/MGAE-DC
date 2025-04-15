@@ -95,7 +95,7 @@ def run(params: Dict):
     # TODO Add check for IDs between response dataframe and features dataframes
     
     cells_to_remove = []
-    unique_cells = response_train[response_train[params['cell_column_name']]].unique()
+    unique_cells = response_train[params['cell_column_name']].unique()
     for cell in unique_cells:
         df = response_train[response_train[params['cell_column_name']] == cell]
         antag = df[df['y_col_name'] < params['additive_min']]
