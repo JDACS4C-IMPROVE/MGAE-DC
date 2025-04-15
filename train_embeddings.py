@@ -181,8 +181,12 @@ def train_model(sess, model, opt, placeholders, drug_feat, train_networks, val_n
 
         valid_loss = 0
         for cellidx in range(cellscount):
+            print("Using", cellidx)
             for net in range(1, 4):  # Loop over three networks
+                print("Net", net)
                 net_index_pos, net_index_neg = val_networks[f"d_net{net}_index"][cellidx]
+                print("net_index_pos", net_index_pos)
+                print("net_index_neg", net_index_neg)
                 pos_neg_weight = len(net_index_neg) / len(net_index_pos)
 
                 net_labels_pos = [1] * len(net_index_pos)
